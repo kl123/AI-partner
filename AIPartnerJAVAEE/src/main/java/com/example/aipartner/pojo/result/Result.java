@@ -1,4 +1,4 @@
-package com.example.aipartner.pojo;
+package com.example.aipartner.pojo.result;
 
 public class Result {
     private Integer code; //1 成功 ， 0 失败

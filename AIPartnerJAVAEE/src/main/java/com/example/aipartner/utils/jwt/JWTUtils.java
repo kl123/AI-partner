@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 public class JWTUtils {
@@ -34,7 +35,7 @@ public class JWTUtils {
     }
 
     /**
-     * 验证token  合法性
+     * 验证token合法性
      */
     public static DecodedJWT verify(String token) {
         return JWT.require(Algorithm.HMAC256(SING)).build().verify(token);
@@ -43,9 +44,16 @@ public class JWTUtils {
     /**
      * 获取token信息方法
      */
-    public static DecodedJWT getTokenInfo(String token){
+    public static Map<String, String> getTokenInfo(String token) {
         DecodedJWT verify = JWT.require(Algorithm.HMAC256(SING)).build().verify(token);
-        return verify;
+
+        // 获取声明
+        Map<String, String> claims = new HashMap<>();
+        claims.put("username", verify.getClaim("username").asString());
+        claims.put("password", verify.getClaim("password").asString());
+        claims.put("userId", verify.getClaim("userId").asString());
+        return claims;
     }
+
 }
 

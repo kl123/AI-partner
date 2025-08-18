@@ -1,11 +1,9 @@
-package com.example.aipartner.controller;
+package com.example.aipartner;
 
 
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.aipartner.pojo.Result;
-import com.example.aipartner.pojo.User;
+import com.example.aipartner.pojo.result.Result;
+import com.example.aipartner.pojo.testPojo.User;
 import com.example.aipartner.utils.jwt.JWTUtils;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.web.bind.annotation.*;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.aipartner.mapper.UserMapper">
+    <insert id="register">
+        INSERT INTO db_aipartner.users (username, password, avatar)
+        VALUES (#{username}, #{password}, #{avatar})
+    </insert>
+    <update id="updateLastLoginTime">
+        UPDATE db_aipartner.users
+        SET last_login = now()
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="login" resultType="java.lang.Long">
+        SELECT user_id
+        FROM db_aipartner.users
+        WHERE username = #{username}
+          AND password = #{password}
+    </select>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.aipartner.mapper.IndividualStudyPlanningMapper">
+
+    <insert id="createIndividualStudyPlanning">
+        insert into db_aipartner.learning_paths(user_id, title, description)
+        VALUES (#{userId}, #{title}, #{description})
+    </insert>
+    <insert id="createKnowledgePoints">
+        insert into db_aipartner.knowledge_points(day_num, display_name, description, difficulty, subject)
+        VALUES
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.day_num}, #{item.display_name}, #{item.description}, #{item.difficulty}, #{item.subject})
+        </foreach>
+    </insert>
+</mapper>
