@@ -3,6 +3,7 @@ package com.example.aipartner.service.impl;
 import com.example.aipartner.mapper.IndividualStudyPlanningMapper;
 import com.example.aipartner.pojo.KnowledgePoints;
 import com.example.aipartner.pojo.LearningPaths;
+import com.example.aipartner.pojo.LearningPathsAndKnowledgePoints;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.IndividualStudyPlanningService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +28,29 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
         Long userId = Long.parseLong(map.get("userId"));
         learningPaths.setUserId(userId);
         individualStudyPlanningMapper.createIndividualStudyPlanning(learningPaths);
-        individualStudyPlanningMapper.createKnowledgePoints(knowledgePoints);
-        return null;
+        individualStudyPlanningMapper.createKnowledgePoints(knowledgePoints, learningPaths.getPathId());
+        return Result.success();
+    }
+
+    @Override
+    public Result GetLearnPlaning(Map<String, String> map) {
+        Long UserId = Long.parseLong(map.get("userId"));
+        List<LearningPathsAndKnowledgePoints> plans = individualStudyPlanningMapper.GetLearnPlaning(UserId);
+        return Result.success(plans);
+    }
+
+    @Override
+    public Result listLearnPlaning(Map<String, String> map) {
+        Long UserId = Long.parseLong(map.get("userId"));
+        List<LearningPaths> plans = individualStudyPlanningMapper.listLearnPlaning(UserId);
+        return Result.success(plans);
+    }
+
+    @Override
+    public Result listKnowledgePoints(Map<String, Long> request, Map<String, String> map) {
+        Long pathId = request.get("pathId");
+        Long UserId = Long.parseLong(map.get("userId"));
+        List<KnowledgePoints> plans = individualStudyPlanningMapper.listKnowledgePoints(pathId, UserId);
+        return Result.success(plans);
     }
 }

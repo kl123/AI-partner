@@ -6,6 +6,7 @@ import com.example.aipartner.utils.jwt.JWTUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,4 +35,42 @@ public class IndividualStudyPlanningController {
         Map<String, String> map = JWTUtils.getTokenInfo(token);
         return individualStudyPlanningService.Create(request,map);
     }
+
+    /**
+     * 获取个人学习计划包括知识点（写错了补药管这个）
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping("/IndividualPlaning/listAll")
+    public Result GetLearnPlaning(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.GetLearnPlaning(map);
+    }
+
+    /**
+     * 获取个人学习计划
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping("/IndividualPlaning/listLearnPlaning")
+    public Result listLearnPlaning(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.listLearnPlaning(map);
+    }
+
+    /**
+     * 获取个人学习计划下的知识点s
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @PostMapping("/IndividualPlaning/listKnowledgePoints")
+    public Result listKnowledgePoints(@RequestBody Map<String, Long> request,HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.listKnowledgePoints(request,map);
+    }
+
 }

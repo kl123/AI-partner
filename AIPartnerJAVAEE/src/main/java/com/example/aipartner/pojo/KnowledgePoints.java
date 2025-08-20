@@ -15,5 +15,7 @@ public class KnowledgePoints {
   private String description;
   private Long difficulty;
   private String subject;
+  private Long pathId;
+
 
 }
