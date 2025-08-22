@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +18,9 @@ public class KnowledgePoints {
   private Long difficulty;
   private String subject;
   private Long pathId;
+  private Long index;
+  private double proficiency;
+  private LocalDateTime lastInteracted;
 
 
 }

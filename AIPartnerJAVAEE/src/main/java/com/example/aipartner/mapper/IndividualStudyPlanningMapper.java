@@ -31,4 +31,5 @@ public interface IndividualStudyPlanningMapper {
     List<LearningPaths> listLearnPlaning(Long userId);
 
     List<KnowledgePoints> listKnowledgePoints(Long pathId, Long userId);
+
 }

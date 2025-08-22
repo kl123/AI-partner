@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # ✅ 导入 CORS 中间件
-from app.api.WorkflowRunApi import router
+from app.api.WorkflowRunApi import router as workflow_router
+from app.api.VideoCrawlerApi import router as video_crawler_router
 
 app = FastAPI()
 
@@ -14,7 +15,9 @@ app.add_middleware(
 )
 
 # 注册路由
-app.include_router(router)
+app.include_router(workflow_router)
+app.include_router(video_crawler_router)
+
 
 if __name__ == "__main__":
     import uvicorn
