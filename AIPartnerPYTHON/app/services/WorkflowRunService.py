@@ -1,11 +1,14 @@
 from msilib.schema import ServiceControl
 
-from app.models import WorkflowRun
+from app.models import Partern01WorkflowRun
 from app.core.http.httpUtils import send_post_request
 from app.core.jwt.jwtUtils import generate_jwt
 import json
+from typing import TypeVar
 
-def run(coze_api_token:str,workflow_id:str,data:WorkflowRun):
+T = TypeVar('T')
+
+def run(coze_api_token:str,workflow_id:str,data:T):
     """
     This example describes how to use the workflow interface to chat.
     """
@@ -39,7 +42,7 @@ def run(coze_api_token:str,workflow_id:str,data:WorkflowRun):
     return json.loads(workflow.data)
 
 class WorkflowRunService:
-    def handle_workflow_run(self, data: WorkflowRun) -> WorkflowRun:
+    def handle_workflow_run(self, data: T,workflow_id:str) -> Partern01WorkflowRun:
         # 这里添加实际业务逻辑（如调用外部服务、数据处理等）
         jwt = generate_jwt("api.coze.cn","1122791637818","5Cis-hmnZAsHbOG2mDcRmm793QheCzrj2Apj3r_qEUI")
         headers = {
@@ -53,5 +56,5 @@ class WorkflowRunService:
         request = send_post_request(url,headers=headers,json=json)
         content = request["content"]
         access_token = content["access_token"]
-        return run(access_token,"7539521480850898998",data)
+        return run(access_token,workflow_id,data)
 

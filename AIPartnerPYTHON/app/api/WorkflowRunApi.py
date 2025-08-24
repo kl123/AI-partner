@@ -1,10 +1,17 @@
 from fastapi import APIRouter, Depends
 from app.services.WorkflowRunService import WorkflowRunService
-from app.models.WorkflowRun import WorkflowRun
+from app.models.Partern01WorkflowRun import Partern01WorkflowRun
+from app.models.TestAI import TestAIWorkflowRun
 
 router = APIRouter(prefix="/workflow", tags=["Workflow"])
 
 @router.post("/run")
-async def create_workflow_run(data: WorkflowRun, service: WorkflowRunService = Depends(WorkflowRunService)):
-    print(data)
-    return service.handle_workflow_run(data)
+async def create_workflow_run(data: Partern01WorkflowRun, service: WorkflowRunService = Depends(WorkflowRunService)):
+    workflow_id = "7539521480850898998"
+    return service.handle_workflow_run(data,workflow_id)
+
+
+@router.post("/TestAIrun")
+async def create_testai_workflow_run(data:TestAIWorkflowRun, service: WorkflowRunService = Depends(WorkflowRunService)):
+    workflow_id = '7541655529606316075'
+    return service.handle_workflow_run(data,workflow_id)
