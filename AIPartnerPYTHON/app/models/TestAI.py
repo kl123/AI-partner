@@ -5,10 +5,10 @@ class TestAI(BaseModel):
     display_name: str  # 内容描述
     difficulty: int  # 难度等级
     subject: str  # 显示名称
-    difficulty: str  # 编号序列
     response: str  # 学科名称
     TorF: str  # 试题类型
     choice:str
+    description:str
 
 
 class TestAIWorkflowRun(BaseModel):
