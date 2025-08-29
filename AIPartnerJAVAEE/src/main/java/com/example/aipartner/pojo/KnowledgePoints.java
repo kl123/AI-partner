@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KnowledgePoints {
-
   private Long conceptId;
   private Long dayNum;
   private String displayName;
@@ -21,6 +20,5 @@ public class KnowledgePoints {
   private Long index;
   private double proficiency;
   private LocalDateTime lastInteracted;
-
 
 }

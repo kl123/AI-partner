@@ -1,5 +1,6 @@
 package com.example.aipartner.controller;
 
+import com.example.aipartner.pojo.ErrorQuestions;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.IndividualStudyPlanningService;
 import com.example.aipartner.utils.jwt.JWTUtils;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 /**
  * 个人学习计划
@@ -71,6 +71,45 @@ public class IndividualStudyPlanningController {
         String token = httpServletRequest.getHeader("Authorization");
         Map<String, String> map = JWTUtils.getTokenInfo(token);
         return individualStudyPlanningService.listKnowledgePoints(request,map);
+    }
+
+    /**
+     * 更新个人学习计划进度
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @PostMapping("/IndividualPlaning/updateProgressOfTheLearningPath")
+    public Result updateProgressOfTheLearningPath(@RequestBody Map<String, Object> request, HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.updateProgressOfTheLearningPath(request,map);
+    }
+
+
+    /**
+     * 添加错题
+     * @param errorQuestion
+     * @param httpServletRequest
+     * @return
+     */
+    @PostMapping("/IndividualPlaning/addWrongQuestion")
+    public Result addWrongQuestion(@RequestBody ErrorQuestions errorQuestion, HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.addWrongQuestion(errorQuestion,map);
+    }
+
+    /**
+     * 获取错题
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping("/IndividualPlaning/listWrongQuestions")
+    public Result listWrongQuestions(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.listWrongQuestions(map);
     }
 
 }

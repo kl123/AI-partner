@@ -1,5 +1,6 @@
 package com.example.aipartner.service;
 
+import com.example.aipartner.pojo.ErrorQuestions;
 import com.example.aipartner.pojo.result.Result;
 
 import java.util.Map;
@@ -12,4 +13,10 @@ public interface IndividualStudyPlanningService {
     Result listLearnPlaning(Map<String, String> map);
 
     Result listKnowledgePoints(Map<String, Long> request, Map<String, String> map);
+
+    Result updateProgressOfTheLearningPath(Map<String, Object> request, Map<String, String> map);
+
+    Result addWrongQuestion(ErrorQuestions errorQuestion, Map<String, String> map);
+
+    Result listWrongQuestions(Map<String, String> map);
 }

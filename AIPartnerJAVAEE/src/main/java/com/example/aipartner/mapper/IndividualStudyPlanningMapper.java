@@ -1,5 +1,6 @@
 package com.example.aipartner.mapper;
 
+import com.example.aipartner.pojo.ErrorQuestions;
 import com.example.aipartner.pojo.KnowledgePoints;
 import com.example.aipartner.pojo.LearningPaths;
 import com.example.aipartner.pojo.LearningPathsAndKnowledgePoints;
@@ -32,4 +33,13 @@ public interface IndividualStudyPlanningMapper {
 
     List<KnowledgePoints> listKnowledgePoints(Long pathId, Long userId);
 
+    void updateLearningPathProgress(Integer pathId, double progress, String userId);
+
+    void updateKnowledgePointsProficiency(Integer conceptId, Integer userId, double proficiency);
+
+    List<KnowledgePoints> listKnowledgePointsByConceptId(Integer conceptId, Integer pathId);
+
+    void addWrongQuestion(@Param("errorQuestion") ErrorQuestions errorQuestion, @Param("userId") String userId);
+
+    List<ErrorQuestions> listWrongQuestions(String userId);
 }

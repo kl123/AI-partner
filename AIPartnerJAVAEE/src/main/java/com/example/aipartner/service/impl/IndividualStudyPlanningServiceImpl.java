@@ -1,6 +1,7 @@
 package com.example.aipartner.service.impl;
 
 import com.example.aipartner.mapper.IndividualStudyPlanningMapper;
+import com.example.aipartner.pojo.ErrorQuestions;
 import com.example.aipartner.pojo.KnowledgePoints;
 import com.example.aipartner.pojo.LearningPaths;
 import com.example.aipartner.pojo.LearningPathsAndKnowledgePoints;
@@ -53,4 +54,44 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
         List<KnowledgePoints> plans = individualStudyPlanningMapper.listKnowledgePoints(pathId, UserId);
         return Result.success(plans);
     }
+
+    @Override
+    public Result updateProgressOfTheLearningPath(Map<String, Object> request, Map<String, String> map) {
+        Integer pathId = (Integer) request.get("pathId");
+        double proficiency = (double) request.get("progress");
+        Integer conceptId = (Integer) request.get("concept_id");
+        String userId = map.get("userId");
+
+
+        individualStudyPlanningMapper.updateKnowledgePointsProficiency(conceptId, pathId, proficiency);
+        List<KnowledgePoints> knowledgePointsList = individualStudyPlanningMapper.listKnowledgePointsByConceptId(conceptId, pathId);
+        double proficientCount = sumProficiencyPoints(knowledgePointsList);
+        double knowledgePointsListSize = knowledgePointsList.size();
+        log.info("proficientCount: {}", proficientCount);
+        log.info("knowledgePointsListSize: {}", knowledgePointsListSize);
+        double progress = proficientCount / knowledgePointsListSize;
+        individualStudyPlanningMapper.updateLearningPathProgress(pathId, progress, userId);
+        return Result.success();
+    }
+
+    @Override
+    public Result addWrongQuestion(ErrorQuestions errorQuestion, Map<String, String> map) {
+        String userId = map.get("userId");
+        individualStudyPlanningMapper.addWrongQuestion(errorQuestion, userId);
+        return Result.success();
+    }
+
+    @Override
+    public Result listWrongQuestions(Map<String, String> map) {
+        String userId = map.get("userId");
+        List<ErrorQuestions> errorQuestionsList = individualStudyPlanningMapper.listWrongQuestions(userId);
+        return Result.success(errorQuestionsList);
+    }
+
+    public double sumProficiencyPoints(List<KnowledgePoints> knowledgePointsList) {
+        return knowledgePointsList.stream()
+            .mapToDouble(KnowledgePoints::getProficiency)
+            .sum();
+    }
+
 }

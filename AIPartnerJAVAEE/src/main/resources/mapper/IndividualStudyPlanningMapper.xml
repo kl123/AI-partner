@@ -28,6 +28,29 @@
             (#{item.day_num}, #{item.display_name}, #{item.description}, #{item.difficulty}, #{item.subject},#{pathId})
         </foreach>
     </insert>
+    <insert id="addWrongQuestion">
+        insert into db_aipartner.error_questions(user_id, question, user_answer, correct_answer, error_reason)
+        VALUES (
+          #{userId},
+          #{errorQuestion.question},
+          #{errorQuestion.userAnswer},
+          #{errorQuestion.correctAnswer},
+          #{errorQuestion.errorReason}
+        )
+    </insert>
+
+    <update id="updateLearningPathProgress">
+        update db_aipartner.learning_paths
+        set progress = #{progress},
+            updated_at = now()
+        where path_id = #{pathId} and user_id = #{userId}
+    </update>
+    <update id="updateKnowledgePointsProficiency">
+        update db_aipartner.knowledge_points
+        set proficiency = #{proficiency},
+            last_interacted = now()
+        where concept_id = #{conceptId}
+    </update>
 
     <select id="GetLearnPlaning" resultMap="learningPathMap">
         select *,
@@ -45,5 +68,14 @@
         select * from db_aipartner.knowledge_points
         where path_id = #{pathId}
     </select>
+    <select id="listKnowledgePointsByConceptId" resultType="com.example.aipartner.pojo.KnowledgePoints">
+        select * from db_aipartner.knowledge_points
+        where path_id = #{pathId}
+    </select>
+    <select id="listWrongQuestions" resultType="com.example.aipartner.pojo.ErrorQuestions">
+        select * from db_aipartner.error_questions
+        where user_id = #{userId}
+    </select>
+
 
 </mapper>
