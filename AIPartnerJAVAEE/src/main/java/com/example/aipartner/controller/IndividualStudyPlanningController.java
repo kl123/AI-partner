@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 /**
  * 个人学习计划
@@ -88,16 +89,19 @@ public class IndividualStudyPlanningController {
 
 
     /**
-     * 添加错题
-     * @param errorQuestion
+     * 批量添加错题
+     * @param errorQuestionsList
      * @param httpServletRequest
      * @return
      */
     @PostMapping("/IndividualPlaning/addWrongQuestion")
-    public Result addWrongQuestion(@RequestBody ErrorQuestions errorQuestion, HttpServletRequest httpServletRequest) {
+    public Result addWrongQuestion(@RequestBody List<ErrorQuestions> errorQuestionsList, HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
         Map<String, String> map = JWTUtils.getTokenInfo(token);
-        return individualStudyPlanningService.addWrongQuestion(errorQuestion,map);
+        for (ErrorQuestions errorQuestion : errorQuestionsList){
+            individualStudyPlanningService.addWrongQuestion(errorQuestion,map);
+        }
+        return Result.success();
     }
 
     /**
@@ -111,5 +115,31 @@ public class IndividualStudyPlanningController {
         Map<String, String> map = JWTUtils.getTokenInfo(token);
         return individualStudyPlanningService.listWrongQuestions(map);
     }
+
+    /**
+     * 获取所有测试
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping("/IndividualPlaning/listTestsAll")
+    public Result listTestsAll(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.listTestsAll(map);
+    }
+
+    /**
+     * 根据testId获取题目
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @PostMapping("/IndividualPlaning/listTitleByTestId")
+    public Result listTitleByTestId(@RequestBody Map<String, Long> request, HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.listTitleByTestId(request,map);
+    }
+
 
 }

@@ -76,6 +76,14 @@
         select * from db_aipartner.error_questions
         where user_id = #{userId}
     </select>
+    <select id="listTestsAll" resultType="com.example.aipartner.pojo.Tests">
+        select * from db_aipartner.tests
+        where user_id = #{userId}
+    </select>
+    <select id="listTitleByTestId" resultType="com.example.aipartner.pojo.Title">
+        select * from db_aipartner.title
+        where test_id = #{testId} and user_id = #{userId}
+    </select>
 
 
 </mapper>

@@ -19,4 +19,8 @@ public interface IndividualStudyPlanningService {
     Result addWrongQuestion(ErrorQuestions errorQuestion, Map<String, String> map);
 
     Result listWrongQuestions(Map<String, String> map);
+
+    Result listTestsAll(Map<String, String> map);
+
+    Result listTitleByTestId(Map<String, Long> request, Map<String, String> map);
 }
