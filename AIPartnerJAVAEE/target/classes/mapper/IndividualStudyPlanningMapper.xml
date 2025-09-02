@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.aipartner.mapper.IndividualStudyPlanningMapper">
-    <resultMap id="learningPathMap" type="com.example.aipartner.pojo.LearningPathsAndKnowledgePoints">
+    <resultMap id="learningPathMap" type="com.example.aipartner.pojo.IndividualPlaning.LearningPathsAndKnowledgePoints">
       <id property="pathId" column="path_id"/>
       <result property="userId" column="user_id"/>
       <result property="title" column="title"/>
       <result property="description" column="lp_description"/>
-      <collection property="knowledgePoints" ofType="com.example.aipartner.pojo.KnowledgePoints">
+      <collection property="knowledgePoints" ofType="com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints">
         <id property="conceptId" column="concept_id"/>
         <result property="dayNum" column="day_num"/>
         <result property="displayName" column="display_name"/>
@@ -28,16 +28,7 @@
             (#{item.day_num}, #{item.display_name}, #{item.description}, #{item.difficulty}, #{item.subject},#{pathId})
         </foreach>
     </insert>
-    <insert id="addWrongQuestion">
-        insert into db_aipartner.error_questions(user_id, question, user_answer, correct_answer, error_reason)
-        VALUES (
-          #{userId},
-          #{errorQuestion.question},
-          #{errorQuestion.userAnswer},
-          #{errorQuestion.correctAnswer},
-          #{errorQuestion.errorReason}
-        )
-    </insert>
+
 
     <update id="updateLearningPathProgress">
         update db_aipartner.learning_paths
@@ -60,30 +51,21 @@
         right join db_aipartner.knowledge_points kp on lp.path_id = kp.path_id
         where user_id = #{userId}
     </select>
-    <select id="listLearnPlaning" resultType="com.example.aipartner.pojo.LearningPaths">
+    <select id="listLearnPlaning" resultType="com.example.aipartner.pojo.IndividualPlaning.LearningPaths">
         select * from db_aipartner.learning_paths
         where user_id = #{userId}
     </select>
-    <select id="listKnowledgePoints" resultType="com.example.aipartner.pojo.KnowledgePoints">
+    <select id="listKnowledgePoints" resultType="com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints">
         select * from db_aipartner.knowledge_points
         where path_id = #{pathId}
     </select>
-    <select id="listKnowledgePointsByConceptId" resultType="com.example.aipartner.pojo.KnowledgePoints">
+    <select id="listKnowledgePointsByConceptId" resultType="com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints">
         select * from db_aipartner.knowledge_points
         where path_id = #{pathId}
     </select>
-    <select id="listWrongQuestions" resultType="com.example.aipartner.pojo.ErrorQuestions">
-        select * from db_aipartner.error_questions
-        where user_id = #{userId}
-    </select>
-    <select id="listTestsAll" resultType="com.example.aipartner.pojo.Tests">
-        select * from db_aipartner.tests
-        where user_id = #{userId}
-    </select>
-    <select id="listTitleByTestId" resultType="com.example.aipartner.pojo.Title">
-        select * from db_aipartner.title
-        where test_id = #{testId} and user_id = #{userId}
-    </select>
+
+
+
 
 
 </mapper>

@@ -19,5 +19,7 @@ public interface TestTitleMapper {
     List<Title> listTitleByTestId(@Param("testId") Long testId, @Param("userId") String userId);
 
 
+    void addTest(@Param("tests") Tests tests, @Param("userId") String userId);
 
+    void addTitlesList(@Param("titles") List<Title> titles, @Param("userId") String userId, @Param("testId") Long testId);
 }

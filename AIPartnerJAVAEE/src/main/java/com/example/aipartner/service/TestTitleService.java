@@ -1,6 +1,7 @@
 package com.example.aipartner.service;
 
 import com.example.aipartner.pojo.ErrorQuestions;
+import com.example.aipartner.pojo.TestTitle.TestAndTitlesList;
 import com.example.aipartner.pojo.result.Result;
 
 import java.util.Map;
@@ -14,4 +15,5 @@ public interface TestTitleService {
 
     Result listTitleByTestId(Map<String, Long> request, Map<String, String> map);
 
+    Result addTestAndTitlesList(TestAndTitlesList testAndTitlesList, Map<String, String> map);
 }

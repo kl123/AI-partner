@@ -1,6 +1,7 @@
 package com.example.aipartner.controller;
 
 import com.example.aipartner.pojo.ErrorQuestions;
+import com.example.aipartner.pojo.TestTitle.TestAndTitlesList;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.TestTitleService;
 import com.example.aipartner.utils.jwt.JWTUtils;
@@ -41,7 +42,6 @@ public class TestTitleController {
 
     /**
      * 获取错题
-     *
      * @param httpServletRequest
      * @return
      */
@@ -54,7 +54,6 @@ public class TestTitleController {
 
     /**
      * 获取所有测试
-     *
      * @param httpServletRequest
      * @return
      */
@@ -78,6 +77,16 @@ public class TestTitleController {
         return testTitleService.listTitleByTestId(request, map);
     }
 
-//    @PostMapping("/title/addTestAndTitlesList")
-
+    /**
+     * 添加测试和题目
+     * @param testAndTitlesList
+     * @param httpServletRequest
+     * @return
+     */
+    @PostMapping("/title/addTestAndTitlesList")
+    public Result addTestAndTitlesList(@RequestBody TestAndTitlesList testAndTitlesList, HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return testTitleService.addTestAndTitlesList(testAndTitlesList, map);
+    }
 }

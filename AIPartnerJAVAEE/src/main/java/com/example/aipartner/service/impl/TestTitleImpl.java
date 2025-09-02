@@ -2,16 +2,19 @@ package com.example.aipartner.service.impl;
 
 import com.example.aipartner.mapper.TestTitleMapper;
 import com.example.aipartner.pojo.ErrorQuestions;
+import com.example.aipartner.pojo.TestTitle.TestAndTitlesList;
 import com.example.aipartner.pojo.TestTitle.Tests;
 import com.example.aipartner.pojo.TestTitle.Title;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.TestTitleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class TestTitleImpl implements TestTitleService {
     @Autowired
@@ -43,5 +46,17 @@ public class TestTitleImpl implements TestTitleService {
         String userId = map.get("userId");
         List<Title> titles = testTitleMapper.listTitleByTestId(testId,userId);
         return Result.success(titles);
+    }
+
+    @Override
+    public Result addTestAndTitlesList(TestAndTitlesList testAndTitlesList, Map<String, String> map) {
+        String userId = map.get("userId");
+        Tests tests = testAndTitlesList.getTests();
+        List<Title> titles = testAndTitlesList.getTitles();
+        testTitleMapper.addTest(tests, userId);
+        log.info(tests.toString());
+        testTitleMapper.addTitlesList(titles, userId, tests.getTestId());
+        return Result.success();
+
     }
 }

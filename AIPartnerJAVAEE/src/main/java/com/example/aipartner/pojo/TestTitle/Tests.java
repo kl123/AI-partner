@@ -13,12 +13,9 @@ public class Tests {
 
   private Long testId;
   private Long userId;
-  private Long titleId;
   private String title;
   private double score;
   private LocalDateTime testTime;
   private Long duration;
-  private String testData;
-
 
 }
