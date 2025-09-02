@@ -1,6 +1,8 @@
 package com.example.aipartner.mapper;
 
-import com.example.aipartner.pojo.*;
+import com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints;
+import com.example.aipartner.pojo.IndividualPlaning.LearningPaths;
+import com.example.aipartner.pojo.IndividualPlaning.LearningPathsAndKnowledgePoints;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,11 +38,5 @@ public interface IndividualStudyPlanningMapper {
 
     List<KnowledgePoints> listKnowledgePointsByConceptId(Integer conceptId, Integer pathId);
 
-    void addWrongQuestion(@Param("errorQuestion") ErrorQuestions errorQuestion, @Param("userId") String userId);
 
-    List<ErrorQuestions> listWrongQuestions(String userId);
-
-    List<Tests> listTestsAll(String userId);
-
-    List<Title> listTitleByTestId(@Param("testId") Long testId, @Param("userId") String userId);
 }

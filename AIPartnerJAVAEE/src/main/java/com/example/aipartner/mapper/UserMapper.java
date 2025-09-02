@@ -1,6 +1,6 @@
 package com.example.aipartner.mapper;
 
-import com.example.aipartner.pojo.Users;
+import com.example.aipartner.pojo.User.Users;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

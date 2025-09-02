@@ -1,4 +1,4 @@
-package com.example.aipartner.pojo;
+package com.example.aipartner.pojo.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

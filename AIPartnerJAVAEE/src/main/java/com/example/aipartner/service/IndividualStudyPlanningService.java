@@ -15,12 +15,4 @@ public interface IndividualStudyPlanningService {
     Result listKnowledgePoints(Map<String, Long> request, Map<String, String> map);
 
     Result updateProgressOfTheLearningPath(Map<String, Object> request, Map<String, String> map);
-
-    Result addWrongQuestion(ErrorQuestions errorQuestion, Map<String, String> map);
-
-    Result listWrongQuestions(Map<String, String> map);
-
-    Result listTestsAll(Map<String, String> map);
-
-    Result listTitleByTestId(Map<String, Long> request, Map<String, String> map);
 }

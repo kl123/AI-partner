@@ -1,5 +1,6 @@
-package com.example.aipartner.pojo;
+package com.example.aipartner.pojo.IndividualPlaning;
 
+import com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

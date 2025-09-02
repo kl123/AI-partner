@@ -88,58 +88,8 @@ public class IndividualStudyPlanningController {
     }
 
 
-    /**
-     * 批量添加错题
-     * @param errorQuestionsList
-     * @param httpServletRequest
-     * @return
-     */
-    @PostMapping("/IndividualPlaning/addWrongQuestion")
-    public Result addWrongQuestion(@RequestBody List<ErrorQuestions> errorQuestionsList, HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorization");
-        Map<String, String> map = JWTUtils.getTokenInfo(token);
-        for (ErrorQuestions errorQuestion : errorQuestionsList){
-            individualStudyPlanningService.addWrongQuestion(errorQuestion,map);
-        }
-        return Result.success();
-    }
 
-    /**
-     * 获取错题
-     * @param httpServletRequest
-     * @return
-     */
-    @GetMapping("/IndividualPlaning/listWrongQuestions")
-    public Result listWrongQuestions(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorization");
-        Map<String, String> map = JWTUtils.getTokenInfo(token);
-        return individualStudyPlanningService.listWrongQuestions(map);
-    }
 
-    /**
-     * 获取所有测试
-     * @param httpServletRequest
-     * @return
-     */
-    @GetMapping("/IndividualPlaning/listTestsAll")
-    public Result listTestsAll(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorization");
-        Map<String, String> map = JWTUtils.getTokenInfo(token);
-        return individualStudyPlanningService.listTestsAll(map);
-    }
-
-    /**
-     * 根据testId获取题目
-     * @param request
-     * @param httpServletRequest
-     * @return
-     */
-    @PostMapping("/IndividualPlaning/listTitleByTestId")
-    public Result listTitleByTestId(@RequestBody Map<String, Long> request, HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorization");
-        Map<String, String> map = JWTUtils.getTokenInfo(token);
-        return individualStudyPlanningService.listTitleByTestId(request,map);
-    }
 
 
 }

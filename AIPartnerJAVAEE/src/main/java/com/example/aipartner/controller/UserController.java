@@ -1,6 +1,6 @@
 package com.example.aipartner.controller;
 
-import com.example.aipartner.pojo.Users;
+import com.example.aipartner.pojo.User.Users;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

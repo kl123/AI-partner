@@ -1,7 +1,9 @@
 package com.example.aipartner.service.impl;
 
 import com.example.aipartner.mapper.IndividualStudyPlanningMapper;
-import com.example.aipartner.pojo.*;
+import com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints;
+import com.example.aipartner.pojo.IndividualPlaning.LearningPaths;
+import com.example.aipartner.pojo.IndividualPlaning.LearningPathsAndKnowledgePoints;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.IndividualStudyPlanningService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,34 +73,7 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
         return Result.success();
     }
 
-    @Override
-    public Result addWrongQuestion(ErrorQuestions errorQuestion, Map<String, String> map) {
-        String userId = map.get("userId");
-        individualStudyPlanningMapper.addWrongQuestion(errorQuestion, userId);
-        return Result.success();
-    }
 
-    @Override
-    public Result listWrongQuestions(Map<String, String> map) {
-        String userId = map.get("userId");
-        List<ErrorQuestions> errorQuestionsList = individualStudyPlanningMapper.listWrongQuestions(userId);
-        return Result.success(errorQuestionsList);
-    }
-
-    @Override
-    public Result listTestsAll(Map<String, String> map) {
-        String userId = map.get("userId");
-        List<Tests> Tests = individualStudyPlanningMapper.listTestsAll(userId);
-        return Result.success(Tests);
-    }
-
-    @Override
-    public Result listTitleByTestId(Map<String, Long> request, Map<String, String> map) {
-        Long testId = request.get("testId");
-        String userId = map.get("userId");
-        List<Title> titles = individualStudyPlanningMapper.listTitleByTestId(testId,userId);
-        return Result.success(titles);
-    }
 
     public double sumProficiencyPoints(List<KnowledgePoints> knowledgePointsList) {
         return knowledgePointsList.stream()

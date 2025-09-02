@@ -1,7 +1,7 @@
 package com.example.aipartner.service.impl;
 
 import com.example.aipartner.mapper.UserMapper;
-import com.example.aipartner.pojo.Users;
+import com.example.aipartner.pojo.User.Users;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.UserService;
 import com.example.aipartner.utils.jwt.JWTUtils;
