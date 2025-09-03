@@ -38,11 +38,11 @@ def run(coze_api_token:str,workflow_id:str,data:T):
         workflow_id=workflow_id,
         parameters=json.loads(data.json())
     )
-    # print("workflow.data", workflow.data)
+    print("workflow.data", workflow)
     return json.loads(workflow.data)
 
 class WorkflowRunService:
-    def handle_workflow_run(self, data: T,workflow_id:str) -> Partern01WorkflowRun:
+    def handle_workflow_run(self, data: T,workflow_id:str) -> T:
         # 这里添加实际业务逻辑（如调用外部服务、数据处理等）
         jwt = generate_jwt("api.coze.cn","1122791637818","5Cis-hmnZAsHbOG2mDcRmm793QheCzrj2Apj3r_qEUI")
         headers = {
