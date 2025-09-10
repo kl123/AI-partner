@@ -1,13 +1,21 @@
-from fastapi import APIRouter, Depends
+from datetime import datetime
+from pathlib import Path
+
+from fastapi import APIRouter, Depends, Form
+from pycparser.ply.yacc import resultlimit
 
 from app.models.ErrorInsert import ErrorInsertWorkflowRun
+from app.models.analysis import analysis
 from app.models.data import dataWorkflowRun
 from app.services.WorkflowRunService import WorkflowRunService
 from app.models.Partern01WorkflowRun import Partern01WorkflowRun
 from app.models.TestAI import TestAIWorkflowRun
+from app.models.class_table import classTableFile, classTable
 import ast
+import json
 
 router = APIRouter(prefix="/workflow", tags=["Workflow"])
+
 
 @router.post("/run")
 async def create_workflow_run(data: Partern01WorkflowRun, service: WorkflowRunService = Depends(WorkflowRunService)):
@@ -33,6 +41,25 @@ async def add_ErrorInsert_workflow_run(data:ErrorInsertWorkflowRun, service: Wor
 async def select_data_workflow_run(data:dataWorkflowRun, service: WorkflowRunService = Depends(WorkflowRunService)):
     workflow_id = '7544411217345069091'
     result = service.handle_workflow_run(data,workflow_id)
-    print(result)
-    # result['output'] = eval(result['output'])
+    return result
+
+@router.post("/classTable")
+async def select_data_workflow_run(
+    data: classTable,
+    service: WorkflowRunService = Depends(WorkflowRunService)
+):
+    print(json.loads(data.json()))
+    workflow_id = '7545724509002596404'
+    result = service.handle_workflow_run(data, workflow_id)
+
+    return result
+
+@router.post("/analysis")
+async def analysis_workflow_run(
+    data: analysis,
+    service: WorkflowRunService = Depends(WorkflowRunService)
+):
+    print(json.loads(data.json()))
+    workflow_id = '7545038641094180899'
+    result = service.handle_workflow_run(data, workflow_id)
     return result

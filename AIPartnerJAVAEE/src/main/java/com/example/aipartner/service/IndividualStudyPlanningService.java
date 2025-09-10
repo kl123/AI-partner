@@ -1,8 +1,9 @@
 package com.example.aipartner.service;
 
-import com.example.aipartner.pojo.ErrorQuestions;
 import com.example.aipartner.pojo.result.Result;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 public interface IndividualStudyPlanningService {
@@ -15,4 +16,8 @@ public interface IndividualStudyPlanningService {
     Result listKnowledgePoints(Map<String, Long> request, Map<String, String> map);
 
     Result updateProgressOfTheLearningPath(Map<String, Object> request, Map<String, String> map);
+
+    Result uploadFile(MultipartFile file, Map<String, String> map, String token) throws IOException;
+
+    Result listCourse(Map<String, String> map);
 }

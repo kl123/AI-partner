@@ -4,13 +4,26 @@ import com.example.aipartner.mapper.IndividualStudyPlanningMapper;
 import com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints;
 import com.example.aipartner.pojo.IndividualPlaning.LearningPaths;
 import com.example.aipartner.pojo.IndividualPlaning.LearningPathsAndKnowledgePoints;
+import com.example.aipartner.pojo.IndividualPlaning.UserCourse;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.IndividualStudyPlanningService;
+import com.example.aipartner.utils.AliOSSUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +32,12 @@ import java.util.Map;
 public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanningService {
     @Autowired
     private IndividualStudyPlanningMapper individualStudyPlanningMapper;
+
+    @Autowired
+    private AliOSSUtils aliOSSUtils;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public Result Create(Map<String, Object> request, Map<String, String> map) {
@@ -73,6 +92,48 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
         return Result.success();
     }
 
+    @Override
+    public Result uploadFile(MultipartFile file, Map<String, String> map, String token) throws IOException {
+        Integer userId = Integer.valueOf(map.get("userId"));
+
+
+        String imgUrl = aliOSSUtils.upload(file);
+        String url = "http://localhost:8085/workflow/classTable";
+
+        Map<String, String> request = new HashMap<>();
+        request.put("image", imgUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", token);
+
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(request, headers);
+
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> responseBody = objectMapper.readValue(response.getBody(), new TypeReference<Map<String, Object>>() {});
+            UserCourse userCourse = new UserCourse(null,userId,null,responseBody);
+            individualStudyPlanningMapper.createUserCourse(userCourse);
+            return Result.success(responseBody);
+        } catch (HttpClientErrorException e) {
+            log.error("HTTP请求失败: {}", e.getStatusCode(), e);
+            return Result.error("请求失败: " + e.getResponseBodyAsString());
+        } catch (JsonProcessingException e) {
+            log.error("JSON解析失败", e);
+            return Result.error("响应数据格式错误");
+        } catch (Exception e) {
+            log.error("文件上传异常", e);
+            return Result.error("上传失败：" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Result listCourse(Map<String, String> map) {
+        String userId = map.get("userId");
+        UserCourse userCourse = individualStudyPlanningMapper.listCourse(userId);
+        return Result.success(userCourse);
+    }
 
 
     public double sumProficiencyPoints(List<KnowledgePoints> knowledgePointsList) {

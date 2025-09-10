@@ -3,6 +3,7 @@ package com.example.aipartner.mapper;
 import com.example.aipartner.pojo.IndividualPlaning.KnowledgePoints;
 import com.example.aipartner.pojo.IndividualPlaning.LearningPaths;
 import com.example.aipartner.pojo.IndividualPlaning.LearningPathsAndKnowledgePoints;
+import com.example.aipartner.pojo.IndividualPlaning.UserCourse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -39,4 +40,7 @@ public interface IndividualStudyPlanningMapper {
     List<KnowledgePoints> listKnowledgePointsByConceptId(Integer conceptId, Integer pathId);
 
 
+    void createUserCourse(UserCourse userCourse);
+
+    UserCourse listCourse(String userId);
 }

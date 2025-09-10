@@ -1,18 +1,17 @@
 package com.example.aipartner.controller;
 
-import com.example.aipartner.pojo.ErrorQuestions;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.IndividualStudyPlanningService;
+import com.example.aipartner.utils.AliOSSUtils;
 import com.example.aipartner.utils.jwt.JWTUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.Map;
 /**
  * 个人学习计划
@@ -23,6 +22,12 @@ public class IndividualStudyPlanningController {
 
     @Autowired
     private IndividualStudyPlanningService individualStudyPlanningService;
+
+    @Autowired
+    private AliOSSUtils aliOSSUtils;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     /**
      * 创建个人学习计划
@@ -87,6 +92,32 @@ public class IndividualStudyPlanningController {
         return individualStudyPlanningService.updateProgressOfTheLearningPath(request,map);
     }
 
+    /**
+     * 课表文件图片生成课表json
+     * (双后端联动，端口8084)
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("/IndividualPlaning/create")
+    public Result uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest httpServletRequest) throws IOException {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.uploadFile(file,map,token);
+
+    }
+
+    /**
+     * 获取课表
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping("/IndividualPlaning/getCourse")
+    public Result getCourse(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+        return individualStudyPlanningService.listCourse(map);
+    }
 
 
 

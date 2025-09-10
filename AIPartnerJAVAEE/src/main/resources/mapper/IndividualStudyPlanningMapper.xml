@@ -28,6 +28,10 @@
             (#{item.day_num}, #{item.display_name}, #{item.description}, #{item.difficulty}, #{item.subject},#{pathId})
         </foreach>
     </insert>
+    <insert id="createUserCourse">
+        insert into db_aipartner.user_course(user_id, course)
+        VALUES (#{userId}, #{course, typeHandler=com.example.aipartner.pojo.JsonTypeHandler})
+    </insert>
 
 
     <update id="updateLearningPathProgress">
@@ -63,9 +67,10 @@
         select * from db_aipartner.knowledge_points
         where path_id = #{pathId}
     </select>
-
-
-
+    <select id="listCourse">
+        select *,course as courseStr from db_aipartner.user_course
+        where user_id = #{userId}
+    </select>
 
 
 </mapper>

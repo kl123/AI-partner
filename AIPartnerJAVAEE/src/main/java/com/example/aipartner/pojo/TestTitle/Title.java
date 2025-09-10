@@ -15,7 +15,7 @@ public class Title {
   private Integer testId;
   private String type;
   private String userAnswer;
-  private Integer showAnswer;
+  private String showAnswer;
   private Integer isSubmitted;
   private Integer isCorrect;
   private String text;
