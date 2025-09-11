@@ -30,7 +30,7 @@
     </insert>
     <insert id="createUserCourse">
         insert into db_aipartner.user_course(user_id, course)
-        VALUES (#{userId}, #{course, typeHandler=com.example.aipartner.pojo.JsonTypeHandler})
+        VALUES (#{userId}, #{userCourse, typeHandler=com.example.aipartner.pojo.JsonTypeHandler})
     </insert>
 
 

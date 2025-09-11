@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IndividualStudyPlanningMapper {
@@ -40,7 +41,7 @@ public interface IndividualStudyPlanningMapper {
     List<KnowledgePoints> listKnowledgePointsByConceptId(Integer conceptId, Integer pathId);
 
 
-    void createUserCourse(UserCourse userCourse);
+    void createUserCourse(@Param("userCourse") Map<String, List<UserCourse.UserCourse_CourseMap>> userCourse, @Param("userId") String userId);
 
     UserCourse listCourse(String userId);
 }

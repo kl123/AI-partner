@@ -1,5 +1,6 @@
 package com.example.aipartner.controller;
 
+import com.example.aipartner.pojo.IndividualPlaning.UserCourse;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.IndividualStudyPlanningService;
 import com.example.aipartner.utils.AliOSSUtils;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 /**
  * 个人学习计划
@@ -104,7 +106,6 @@ public class IndividualStudyPlanningController {
         String token = httpServletRequest.getHeader("Authorization");
         Map<String, String> map = JWTUtils.getTokenInfo(token);
         return individualStudyPlanningService.uploadFile(file,map,token);
-
     }
 
     /**
@@ -118,6 +119,22 @@ public class IndividualStudyPlanningController {
         Map<String, String> map = JWTUtils.getTokenInfo(token);
         return individualStudyPlanningService.listCourse(map);
     }
+
+    /**
+     * 添加课表
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @PostMapping("/IndividualPlaning/AddCourse")
+    public Result AddCourse(@RequestBody Map<String,List<UserCourse.UserCourse_CourseMap>> request, HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Map<String, String> map = JWTUtils.getTokenInfo(token);
+//        return Result.success(request);
+        return individualStudyPlanningService.AddCourse(request,map);
+    }
+
+
 
 
 

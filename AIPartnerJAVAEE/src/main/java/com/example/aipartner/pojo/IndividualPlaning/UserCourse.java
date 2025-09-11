@@ -33,17 +33,17 @@ public class UserCourse {
       log.error("Failed to parse specificationsStr: {}", course, e);
     }
   }
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class UserCourse_CourseMap {
+    private String name;        // 课程名称
+    private String week;        // 周几
+    private Integer[] num;          // 节次数组
+    private String teacher;     // 教师姓名
+    private String location;    // 教室位置
+    private String color;       // 颜色代码（如：#4682B4）
+  }
 
 }
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class UserCourse_CourseMap {
-  private String name;        // 课程名称
-  private String week;        // 周几
-  private Integer[] num;          // 节次数组
-  private String teacher;     // 教师姓名
-  private String location;    // 教室位置
-  private String color;       // 颜色代码（如：#4682B4）
-}

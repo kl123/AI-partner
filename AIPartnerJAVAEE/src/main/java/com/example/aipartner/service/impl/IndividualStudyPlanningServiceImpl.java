@@ -113,8 +113,8 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> responseBody = objectMapper.readValue(response.getBody(), new TypeReference<Map<String, Object>>() {});
-            UserCourse userCourse = new UserCourse(null,userId,null,responseBody);
-            individualStudyPlanningMapper.createUserCourse(userCourse);
+//            UserCourse userCourse = new UserCourse(null,userId,null,responseBody);
+//            individualStudyPlanningMapper.createUserCourse(userCourse);
             return Result.success(responseBody);
         } catch (HttpClientErrorException e) {
             log.error("HTTP请求失败: {}", e.getStatusCode(), e);
@@ -133,6 +133,13 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
         String userId = map.get("userId");
         UserCourse userCourse = individualStudyPlanningMapper.listCourse(userId);
         return Result.success(userCourse);
+    }
+
+    @Override
+    public Result AddCourse(Map<String, List<UserCourse.UserCourse_CourseMap>> request, Map<String, String> map) {
+        String userId = map.get("userId");
+        individualStudyPlanningMapper.createUserCourse(request,userId);
+        return Result.success();
     }
 
 
