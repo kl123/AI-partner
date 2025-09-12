@@ -44,4 +44,8 @@ public interface IndividualStudyPlanningMapper {
     void createUserCourse(@Param("userCourse") Map<String, List<UserCourse.UserCourse_CourseMap>> userCourse, @Param("userId") String userId);
 
     UserCourse listCourse(String userId);
+
+    List<LearningPathsAndKnowledgePoints> listLearnPlaningAll();
+
+    void updateRisk(@Param("pathId") Long pathId, @Param("risk") double risk);
 }

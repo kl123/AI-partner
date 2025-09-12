@@ -24,4 +24,6 @@ public interface IndividualStudyPlanningService {
     Result listCourse(Map<String, String> map);
 
     Result AddCourse(Map<String, List<UserCourse.UserCourse_CourseMap>> request, Map<String, String> map);
+
+    void updateRisk();
 }

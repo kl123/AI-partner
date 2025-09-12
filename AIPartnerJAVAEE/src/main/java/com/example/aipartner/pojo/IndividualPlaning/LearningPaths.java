@@ -19,6 +19,7 @@ public class LearningPaths {
   private Long isCompleted;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+  private Double risk;
 
 
 }

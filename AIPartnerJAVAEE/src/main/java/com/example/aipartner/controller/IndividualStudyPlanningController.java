@@ -134,6 +134,15 @@ public class IndividualStudyPlanningController {
         return individualStudyPlanningService.AddCourse(request,map);
     }
 
+    /**
+     * 更新风险(测试用)
+     * @return
+     */
+    @PutMapping("/IndividualPlaning/updateRisk")
+    public Result updateRisk() {
+        individualStudyPlanningService.updateRisk();
+        return Result.success();
+    }
 
 
 

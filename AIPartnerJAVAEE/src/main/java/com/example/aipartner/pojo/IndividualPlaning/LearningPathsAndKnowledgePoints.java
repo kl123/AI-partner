@@ -20,5 +20,6 @@ public class LearningPathsAndKnowledgePoints{
     private Long isCompleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Double risk;
     List<KnowledgePoints> knowledgePoints;
 }

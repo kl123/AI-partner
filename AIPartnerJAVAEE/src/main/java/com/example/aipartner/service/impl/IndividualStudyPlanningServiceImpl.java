@@ -8,6 +8,7 @@ import com.example.aipartner.pojo.IndividualPlaning.UserCourse;
 import com.example.aipartner.pojo.result.Result;
 import com.example.aipartner.service.IndividualStudyPlanningService;
 import com.example.aipartner.utils.AliOSSUtils;
+import com.example.aipartner.utils.RiskCalculator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,13 +40,18 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private RiskCalculator riskCalculator;
     @Override
     public Result Create(Map<String, Object> request, Map<String, String> map) {
-        List<KnowledgePoints> knowledgePoints = (List<KnowledgePoints>) request.get("all_nodes");
+        Object knowledgePointsObject = request.get("all_nodes");
+        List<KnowledgePoints> knowledgePoints = new ObjectMapper().convertValue(knowledgePointsObject, new TypeReference<List<KnowledgePoints>>() {});
+        double risk = riskCalculator.calculateOverallRisk(knowledgePoints);
         Object object = request.get("learn_path");
         LearningPaths learningPaths = new ObjectMapper().convertValue(object, LearningPaths.class);
         Long userId = Long.parseLong(map.get("userId"));
         learningPaths.setUserId(userId);
+        learningPaths.setRisk(risk);
         individualStudyPlanningMapper.createIndividualStudyPlanning(learningPaths);
         individualStudyPlanningMapper.createKnowledgePoints(knowledgePoints, learningPaths.getPathId());
         return Result.success();
@@ -142,11 +148,22 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
         return Result.success();
     }
 
+    @Override
+    public void updateRisk() {
+        List<LearningPathsAndKnowledgePoints> learningPathsAndKnowledgePoints = individualStudyPlanningMapper.listLearnPlaningAll();
+        for (LearningPathsAndKnowledgePoints learningPathsAndKnowledgePoint : learningPathsAndKnowledgePoints) {
+            double risk = riskCalculator.calculateOverallRisk(learningPathsAndKnowledgePoint.getKnowledgePoints());
+            individualStudyPlanningMapper.updateRisk(learningPathsAndKnowledgePoint.getPathId(), risk);
+        }
+        log.info("learningPathsAndKnowledgePoints: {}", learningPathsAndKnowledgePoints);
+    }
+
 
     public double sumProficiencyPoints(List<KnowledgePoints> knowledgePointsList) {
         return knowledgePointsList.stream()
             .mapToDouble(KnowledgePoints::getProficiency)
             .sum();
     }
+
 
 }
