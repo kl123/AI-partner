@@ -1,17 +1,12 @@
-from datetime import datetime
-from pathlib import Path
+from fastapi import APIRouter, Depends
 
-from fastapi import APIRouter, Depends, Form
-from pycparser.ply.yacc import resultlimit
-
-from app.models.ErrorInsert import ErrorInsertWorkflowRun
-from app.models.analysis import analysis
-from app.models.data import dataWorkflowRun
+from app.models.WorkflowRun.ErrorInsert import ErrorInsertWorkflowRun
+from app.models.WorkflowRun.analysis import analysis
+from app.models.WorkflowRun.data import dataWorkflowRun
 from app.services.WorkflowRunService import WorkflowRunService
-from app.models.Partern01WorkflowRun import Partern01WorkflowRun
-from app.models.TestAI import TestAIWorkflowRun
-from app.models.class_table import classTableFile, classTable
-import ast
+from app.models.WorkflowRun.Partern01WorkflowRun import Partern01WorkflowRun
+from app.models.WorkflowRun.TestAI import TestAIWorkflowRun
+from app.models.WorkflowRun.class_table import classTable
 import json
 
 router = APIRouter(prefix="/workflow", tags=["Workflow"])

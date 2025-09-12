@@ -1,6 +1,3 @@
-from msilib.schema import ServiceControl
-
-from app.models import Partern01WorkflowRun
 from app.core.http.httpUtils import send_post_request
 from app.core.jwt.jwtUtils import generate_jwt
 import json
@@ -13,7 +10,6 @@ def run(coze_api_token:str,workflow_id:str,data:T):
     This example describes how to use the workflow interface to chat.
     """
 
-    import os
     # Our official coze sdk for Python [cozepy](https://github.com/coze-dev/coze-py)
     from cozepy import COZE_CN_BASE_URL
 

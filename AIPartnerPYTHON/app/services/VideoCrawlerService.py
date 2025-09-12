@@ -1,7 +1,6 @@
-from warnings import catch_warnings
 import requests
 from bs4 import BeautifulSoup
-from app.models.VideoCrawler import VideoCrawler
+from app.models.VideoCrawler.VideoCrawler import VideoCrawler
 
 
 def simple_crawler(url,headers):

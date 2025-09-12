@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from app.services.VideoCrawlerService import VideoCrawlerService
-from app.models.VideoCrawler import VideoCrawler
+from app.models.VideoCrawler.VideoCrawler import VideoCrawler
 
 router = APIRouter(prefix="/videoCrawler", tags=["VideoCrawler"])
 

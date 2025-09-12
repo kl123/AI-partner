@@ -20,6 +20,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
         logger.info("JWT拦截器已成功部署，开始拦截请求");
         registry.addInterceptor(new JWTInterceptors())
                 .addPathPatterns("/**")  // 全局拦截所有接口
-                .excludePathPatterns("/user/login", "/user/register", "/static/**");  // 排除登录、注册、静态资源等接口
+                .excludePathPatterns("/user/login", "/user/register", "/static/**","/utils/**");  // 排除登录、注册、静态资源等接口
     }
 }
