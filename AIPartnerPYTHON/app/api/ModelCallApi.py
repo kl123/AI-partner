@@ -2,7 +2,9 @@ from fastapi import APIRouter, Depends, UploadFile, File
 
 # 导入OSS工具类
 from app.core.oss.OssUtils import OssUtils
+from app.models.ModelCall.AIemotion import AIEmotion
 from app.models.ModelCall.TextToAudio import TextToAudio
+from app.services.ModelCallService.AIEmotionService import AIEmotionService
 from app.services.ModelCallService.AudioToTextService import ModelCallService, call_model
 from app.services.ModelCallService.TextToAudioMp3Service import textToAudioMp3
 
@@ -59,3 +61,9 @@ async def audio_to_text_endpoint(
 @router.post("/TextToAudio")
 async def text_to_audio_endpoint(data: TextToAudio):
     return TextToAudio(text=textToAudioMp3(data.text))
+
+
+@router.post("/AIEmotion")
+async def ai_emotion_endpoint(data: AIEmotion,modelCallService: AIEmotionService = Depends(AIEmotionService)):
+    return modelCallService.ai_emotion(data.emotion)
+
