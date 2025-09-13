@@ -49,7 +49,7 @@ class AIEmotionService:
 
             print()  # 换行
             messages.append({"role": "assistant", "content": full_reply})
-
+            return full_reply.strip() if full_reply.strip() else "小暖正在思考中，请稍等～"
         except Exception as e:
             print(f"\n❌ 出错了: {e}")
             messages.pop()  # 移除最后的用户输入，避免污染上下文
