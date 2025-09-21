@@ -65,5 +65,10 @@ async def text_to_audio_endpoint(data: TextToAudio):
 
 @router.post("/AIEmotion")
 async def ai_emotion_endpoint(data: AIEmotion,modelCallService: AIEmotionService = Depends(AIEmotionService)):
-    return modelCallService.ai_emotion(data.emotion)
+    result = await modelCallService.ai_emotion(data.emotion)
+    return {
+        "code": 200,
+        "message": "success",
+        "data":  result
+    }
 
