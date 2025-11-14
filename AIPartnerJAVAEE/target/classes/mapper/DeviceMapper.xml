@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.aipartner.mapper.DeviceMapper">
+
+    <insert id="insert">
+        insert into db_aipartner.device(dev_id, userid, password)
+        values(#{devId}, #{userid}, #{password})
+    </insert>
+
+    <select id="findById" resultType="com.example.aipartner.pojo.device.Device">
+        select * from db_aipartner.device where dev_id = #{devId}
+    </select>
+
+</mapper>

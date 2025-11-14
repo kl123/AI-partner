@@ -4,10 +4,14 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @MapperScan("com.example.aipartner.mapper")
-@ServletComponentScan //开启了SpringBoot对Servlet组件的支持
+@ServletComponentScan
+@EnableAsync
+@EnableScheduling
 public class AiPartnerApplication {
 
     public static void main(String[] args) {
