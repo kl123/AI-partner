@@ -41,14 +41,17 @@ public class IndividualStudyPlanningServiceImpl implements IndividualStudyPlanni
     private RestTemplate restTemplate;
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     private RiskCalculator riskCalculator;
     @Override
     public Result Create(Map<String, Object> request, Map<String, String> map) {
         Object knowledgePointsObject = request.get("all_nodes");
-        List<KnowledgePoints> knowledgePoints = new ObjectMapper().convertValue(knowledgePointsObject, new TypeReference<List<KnowledgePoints>>() {});
+        List<KnowledgePoints> knowledgePoints = objectMapper.convertValue(knowledgePointsObject, new TypeReference<List<KnowledgePoints>>() {});
         double risk = riskCalculator.calculateOverallRisk(knowledgePoints);
         Object object = request.get("learn_path");
-        LearningPaths learningPaths = new ObjectMapper().convertValue(object, LearningPaths.class);
+        LearningPaths learningPaths = objectMapper.convertValue(object, LearningPaths.class);
         Long userId = Long.parseLong(map.get("userId"));
         learningPaths.setUserId(userId);
         learningPaths.setRisk(risk);

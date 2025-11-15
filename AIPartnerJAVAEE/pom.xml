@@ -108,6 +108,13 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.19.2</version> <!-- 与 jackson-databind 版本保持一致 -->
+        </dependency>
+
+
     </dependencies>
 
     <build>
