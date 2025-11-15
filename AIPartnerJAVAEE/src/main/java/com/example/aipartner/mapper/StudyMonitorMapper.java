@@ -12,4 +12,6 @@ public interface StudyMonitorMapper {
 
     void update(StudyMonitor studyMonitor);
 
+    void deleteByDevId(String devId);
+
 }

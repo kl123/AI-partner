@@ -2,6 +2,8 @@ package com.example.aipartner.service.impl;
 
 import com.example.aipartner.mapper.DeviceMapper;
 import com.example.aipartner.mapper.StudyMonitorMapper;
+import com.example.aipartner.mapper.UserMapper;
+import com.example.aipartner.pojo.User.Users;
 import com.example.aipartner.pojo.api.BemfaApiResponse;
 import com.example.aipartner.pojo.api.DeviceData;
 import com.example.aipartner.pojo.api.TopicInfoData;
@@ -38,6 +40,9 @@ public class DeviceDataServiceImpl implements DeviceDataService {
 
     @Autowired
     private StudyMonitorMapper studyMonitorMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     private final Map<String, Boolean> deviceSessionEnded = new ConcurrentHashMap<>();
     private final Map<String, Long> deviceLastUnix = new ConcurrentHashMap<>();
@@ -79,6 +84,54 @@ public class DeviceDataServiceImpl implements DeviceDataService {
     public void setAuth(String userId, String password) {
         this.currentUserId = userId;
         this.currentPassword = password;
+    }
+
+    @Override
+    public boolean bindDevice(String devId, String username, String password) {
+        if (devId == null || devId.isEmpty()) return false;
+        Users u = new Users();
+        u.setUsername(username);
+        u.setPassword(password);
+        Long uid = userMapper.login(u);
+        if (uid == null) {
+            return false;
+        }
+        Device existing = deviceMapper.findById(devId);
+        if (existing == null) {
+            Device device = new Device();
+            device.setDevId(devId);
+            device.setUserid(uid.intValue());
+            device.setPassword(password);
+            deviceMapper.insert(device);
+        } else {
+            deviceMapper.updateBinding(devId, uid.intValue(), password);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean initDevice(String devId, String username, String password) {
+        if (devId == null || devId.isEmpty()) return false;
+        try {
+            studyMonitorMapper.deleteByDevId(devId);
+        } catch (Exception ignored) {}
+        Device existing = deviceMapper.findById(devId);
+        if (existing == null) {
+            Device device = new Device();
+            device.setDevId(devId);
+            device.setUserid(0);
+            device.setPassword("admin");
+            deviceMapper.insert(device);
+        } else {
+            deviceMapper.updateBinding(devId, 0, "admin");
+        }
+        return true;
+    }
+
+    @Override
+    public String findDevId(String nowUserId, String nowPassword, String nowUsername) {
+        String devId = deviceMapper.findDevId(nowUserId,nowPassword,nowUsername);
+        return  devId;
     }
 
     private boolean processApiResponseAndContinue(BemfaApiResponse apiResponse) {

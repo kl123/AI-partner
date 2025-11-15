@@ -30,4 +30,8 @@
         where id = #{id}
     </update>
 
+    <delete id="deleteByDevId">
+        delete from db_aipartner.study_monitor where dev_id = #{devId}
+    </delete>
+
 </mapper>

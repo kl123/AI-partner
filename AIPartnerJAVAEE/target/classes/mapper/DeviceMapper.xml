@@ -10,5 +10,15 @@
     <select id="findById" resultType="com.example.aipartner.pojo.device.Device">
         select * from db_aipartner.device where dev_id = #{devId}
     </select>
+    <select id="findDevId" resultType="java.lang.String">
+        select dev_id from db_aipartner.device where userid = #{userid} and password = #{password}
+    </select>
+
+    <update id="updateBinding">
+        update db_aipartner.device
+        set userid = #{userid},
+            password = #{password}
+        where dev_id = #{devId}
+    </update>
 
 </mapper>
