@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.aipartner.mapper.AuxiliaryDeviceMapper">
+    <!--
+      辅助设备表插入语句
+      对应实体：com.example.aipartner.pojo.device.AuxiliaryDevice
+      说明：开启了 map-underscore-to-camel-case，字段自动映射
+    -->
+    <insert id="insert">
+        insert into db_aipartner.auxiliary_device(state, assist_device_name, device_id, img_url, auxiliary_deviceId)
+        values(#{state}, #{assistDeviceName}, #{deviceId}, #{imgUrl}, #{auxiliaryDeviceId})
+    </insert>
+
+    <select id="listByDeviceId" resultType="com.example.aipartner.pojo.device.AuxiliaryDevice">
+        select id,
+               state,
+               assist_device_name as assistDeviceName,
+               device_id as deviceId,
+               img_url as imgUrl,
+               auxiliary_deviceId as auxiliaryDeviceId
+        from db_aipartner.auxiliary_device
+        where device_id = #{deviceId}
+    </select>
+
+    <select id="findByAuxiliaryDeviceId" resultType="com.example.aipartner.pojo.device.AuxiliaryDevice">
+        select id,
+               state,
+               assist_device_name as assistDeviceName,
+               device_id as deviceId,
+               img_url as imgUrl,
+               auxiliary_deviceId as auxiliaryDeviceId
+        from db_aipartner.auxiliary_device
+        where auxiliary_deviceId = #{auxiliaryDeviceId}
+        limit 1
+    </select>
+
+    <update id="bindToDeviceByAuxId">
+        update db_aipartner.auxiliary_device
+        set device_id = #{deviceId}
+        where auxiliary_deviceId = #{auxiliaryDeviceId}
+    </update>
+
+    <update id="initByAuxiliaryDeviceId">
+        update db_aipartner.auxiliary_device
+        set device_id = 'admin',
+            state = 'false'
+        where auxiliary_deviceId = #{auxiliaryDeviceId}
+    </update>
+
+</mapper>

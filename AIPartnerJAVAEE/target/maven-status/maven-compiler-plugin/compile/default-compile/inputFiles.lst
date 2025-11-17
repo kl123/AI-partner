@@ -1,11 +1,13 @@
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\AiPartnerApplication.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\config\CorsConfig.java
+D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\controller\AuxiliaryDeviceController.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\controller\CozeDocumentController.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\controller\DeviceController.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\controller\IndividualStudyPlanningController.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\controller\TestTitleController.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\controller\UserController.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\controller\UtilsController.java
+D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\mapper\AuxiliaryDeviceMapper.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\mapper\DeviceMapper.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\mapper\IndividualStudyPlanningMapper.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\mapper\StudyMonitorMapper.java
@@ -20,7 +22,9 @@ D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\coze\Coze
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\coze\CozeDocumentResponse.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\coze\DocumentBase.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\coze\SourceInfo.java
+D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\device\AuxiliaryDevice.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\device\Device.java
+D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\device\DeviceInfo.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\ErrorQuestionConcepts.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\ErrorQuestions.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\IndividualPlaning\KnowledgePoints.java
@@ -36,7 +40,9 @@ D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\TestTitle
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\TestTitle\Tests.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\TestTitle\Title.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\pojo\User\Users.java
+D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\service\AuxiliaryDeviceService.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\service\DeviceDataService.java
+D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\service\impl\AuxiliaryDeviceServiceImpl.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\service\impl\CozeDocumentService.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\service\impl\DeviceDataServiceImpl.java
 D:\AI-partner\AIPartnerJAVAEE\src\main\java\com\example\aipartner\service\impl\IndividualStudyPlanningServiceImpl.java

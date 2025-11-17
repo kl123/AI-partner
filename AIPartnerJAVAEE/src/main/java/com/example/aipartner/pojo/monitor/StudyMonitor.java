@@ -3,6 +3,7 @@ package com.example.aipartner.pojo.monitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 /**
  * 学习监测记录（累计结果）
@@ -27,5 +28,6 @@ public class StudyMonitor {
     private Double studyRatio;
     private Double sleepRadio;
     private Double attentionRadio;
+    private LocalDateTime startTime;
     private Boolean endIf;
 }

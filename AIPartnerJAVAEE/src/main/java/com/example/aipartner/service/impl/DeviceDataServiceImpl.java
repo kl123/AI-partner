@@ -8,6 +8,7 @@ import com.example.aipartner.pojo.api.BemfaApiResponse;
 import com.example.aipartner.pojo.api.DeviceData;
 import com.example.aipartner.pojo.api.TopicInfoData;
 import com.example.aipartner.pojo.device.Device;
+import com.example.aipartner.pojo.device.DeviceInfo;
 import com.example.aipartner.pojo.monitor.StudyMonitor;
 import com.example.aipartner.service.DeviceDataService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,8 +22,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -132,6 +137,39 @@ public class DeviceDataServiceImpl implements DeviceDataService {
     public String findDevId(String nowUserId, String nowPassword, String nowUsername) {
         String devId = deviceMapper.findDevId(nowUserId,nowPassword,nowUsername);
         return  devId;
+    }
+
+    @Override
+    public List<Device> listUserDevices(String userId) {
+        return deviceMapper.listByUserId(userId);
+    }
+
+    @Override
+    public List<DeviceInfo> listUserDevicesInfo(String userId) {
+        return deviceMapper.listInfoByUserId(userId);
+    }
+
+    @Override
+    public List<StudyMonitor> listStudyMonitorByDevId(String devId) {
+        return studyMonitorMapper.listByDevId(devId);
+    }
+
+    @Override
+    public boolean updateDeviceNameUser(String devId, String deviceNameUser, String userId) {
+        if (devId == null || devId.isEmpty()) return false;
+        if (deviceNameUser == null || deviceNameUser.isEmpty()) return false;
+        Device device = deviceMapper.findById(devId);
+        if (device == null) return false;
+        try {
+            if (userId != null && device.getUserid() != null) {
+                Integer uid = Integer.parseInt(userId);
+                if (!uid.equals(device.getUserid())) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {}
+        int updated = deviceMapper.updateDeviceNameUser(devId, deviceNameUser);
+        return updated > 0;
     }
 
     private boolean processApiResponseAndContinue(BemfaApiResponse apiResponse) {
@@ -253,6 +291,9 @@ public class DeviceDataServiceImpl implements DeviceDataService {
         monitor.setStudyTime(nullToZero(data.getStudy_time()));
         monitor.setWalkTime(nullToZero(data.getWalk_time()));
         monitor.setPhoneTime(nullToZero(data.getPhone_time()));
+        Long unix = deviceLastUnix.get(data.getId());
+        LocalDateTime start = unix != null ? Instant.ofEpochSecond(unix).atZone(ZoneId.systemDefault()).toLocalDateTime() : LocalDateTime.now();
+        monitor.setStartTime(start);
 
         double totalMin = monitor.getTotalTime();
         int totalSec = (int) Math.round(totalMin * 60);

@@ -5,10 +5,10 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into db_aipartner.study_monitor (
             total_time, sleep_time, study_time, walk_time, phone_time, attention_time,
-            dev_id, study_ratio, sleep_radio, attention_radio
+            dev_id, study_ratio, sleep_radio, attention_radio, start_time
         ) values (
             #{totalTime}, #{sleepTime}, #{studyTime}, #{walkTime}, #{phoneTime}, #{attentionTime},
-            #{devId}, #{studyRatio}, #{sleepRadio}, #{attentionRadio}
+            #{devId}, #{studyRatio}, #{sleepRadio}, #{attentionRadio}, #{startTime}
         )
     </insert>
 
@@ -33,5 +33,9 @@
     <delete id="deleteByDevId">
         delete from db_aipartner.study_monitor where dev_id = #{devId}
     </delete>
+
+    <select id="listByDevId" resultType="com.example.aipartner.pojo.monitor.StudyMonitor">
+        select * from db_aipartner.study_monitor where dev_id = #{devId} order by id asc
+    </select>
 
 </mapper>
