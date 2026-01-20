@@ -19,6 +19,7 @@ public class DeviceSyncTask {
     public void enable() {
         enabled = true;
         log.info("Device sync enabled");
+        run();
     }
 
     public void disable() {
@@ -29,9 +30,9 @@ public class DeviceSyncTask {
     
     // 每5分钟执行一次
     // @Scheduled(cron = "0 */5 * * * ?")
-    
+
     // 每5秒执行一次
-    @Scheduled(cron = "*/5 * * * * ?")
+    @Scheduled(cron = "*/15 * * * * ?")   
     public void run() {
         if (!enabled) {
             return;
@@ -46,3 +47,5 @@ public class DeviceSyncTask {
         }
     }
 }
+// {"end_if":"false","id":"BE20041006","sleep_time":"0:30","study_time":"4:34","walk_time":"0:30","phone_time":"0:25"}
+

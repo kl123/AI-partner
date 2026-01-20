@@ -7,7 +7,7 @@
             total_time, sleep_time, study_time, walk_time, phone_time, attention_time,
             dev_id, study_ratio, sleep_radio, attention_radio, start_time
         ) values (
-            #{totalTime}, #{sleepTime}, #{studyTime}, #{walkTime}, #{phoneTime}, #{attentionTime},
+            #{totalTime}-5, #{sleepTime}, #{studyTime}, #{walkTime}, #{phoneTime}, '00:00:00',
             #{devId}, #{studyRatio}, #{sleepRadio}, #{attentionRadio}, #{startTime}
         )
     </insert>

@@ -133,7 +133,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
         return true;
     }
 
-    @Override
+    @Override   
     public String findDevId(String nowUserId, String nowPassword, String nowUsername) {
         String devId = deviceMapper.findDevId(nowUserId,nowPassword,nowUsername);
         return  devId;
