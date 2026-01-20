@@ -10,7 +10,6 @@ env/
 dist/
 build/
 *.egg-info/
-AIPartnerPYTHON/output/
 AIPartnerPYTHON/app/Online/output/
 AIPartnerPYTHON/app/Online/training/**/Qwen/
 **/target/
